@@ -1,0 +1,47 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "react-app",
+    "airbnb",
+    "plugin:jsx-a11y/recommended",
+    "prettier",
+    "prettier/react"
+  ],
+  "env": { 
+    "es6": true 
+  },
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error", {
+        "semi": true,
+        "singleQuote": true,
+        "jsxSingleQuote": true,
+        "tabWidth": 2
+      }
+    ],
+    "jsx-a11y/label-has-associated-control": ["error", { "assert": "either" } ],
+    "jsx-a11y/media-has-caption": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/prefer-stateless-function": 0,
+    "react/state-in-constructor": 0,
+    "react/destructuring-assignment": 0,
+    "react/button-has-type": 0,
+    "react/no-unused-state": 0,
+    "react/forbid-prop-types": 0,
+    "react/no-deprecated": 0,
+    "no-unused-expressions": 0,
+    "no-shadow": 0,
+    "no-nested-ternary": 0,
+    "no-extra-boolean-cast": 0,
+    "consistent-return": 0,
+    "array-callback-return": 0,
+    "no-underscore-dangle": 0
+  }
+}

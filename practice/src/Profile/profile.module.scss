@@ -1,0 +1,66 @@
+%imageBlock {
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  height: 400px;
+  width: 400px;
+  position: relative;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.profile {
+  background: #41f5c9;
+  width: 100%;
+  display: flex;
+}
+
+.name {
+  font-size: 30px;
+}
+
+.photo {
+  @extend %imageBlock;
+
+  label {
+    display: flex;
+    width: 410px;
+    height: 410px;
+  }
+
+  &hover {
+    background: #f8f8dc;
+  }
+
+  [type = 'file'] {
+    display: none;
+  }
+
+  form {
+    position: absolute;
+  }
+}
+
+.avatar {
+  @extend %imageBlock;
+}
+
+.submitPhoto {
+  position: absolute;
+  top: 400px;
+}
+
+.inputPhoto {
+  width: 400px;
+  height: 350px;
+  cursor: pointer;
+}
+
+.defaultField {
+  align-self: center;
+  font-size: 30px;
+}
+
+[name='name'] {
+  margin: 20px;
+}

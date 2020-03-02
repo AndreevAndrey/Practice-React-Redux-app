@@ -1,0 +1,19 @@
+.task{
+  display: flex;
+  margin: 20px;
+  .user{
+    img{
+      width: 50px;
+    }
+  }
+  .text{
+    margin-left: 20px;
+    width: 500px;
+    background: gold;
+    word-break: break-word;
+    .buttonData{
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

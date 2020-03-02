@@ -1,0 +1,14 @@
+.header{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: aquamarine;
+  a{
+    margin: 20px;
+    color: #9cc6f8;
+    text-decoration: none;
+  }
+  a.active{
+    color: #01805f;
+  }
+}
