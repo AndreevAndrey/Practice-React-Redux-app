@@ -5,11 +5,17 @@ import style from './tasks.module.scss';
 import Task from './Task/Task';
 import Preloader from '../Common/Preloader/Preloader';
 import TaskForm from './Task/TaskForm';
-import { addUsersTask, deleteUsersTask, fetchUserTasks } from './tasksAction';
+import {
+  fetchUserTasks,
+  addUsersTask,
+  updateUsersTask,
+  deleteUsersTask
+} from './tasksAction';
 
 const propTypes = {
   addUsersTask: PropTypes.func.isRequired,
   fetchUserTasks: PropTypes.func.isRequired,
+  updateUsersTask: PropTypes.func.isRequired,
   deleteUsersTask: PropTypes.func.isRequired,
   tasks: PropTypes.shape({
     tasks: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
@@ -18,6 +24,12 @@ const propTypes = {
 };
 
 class TasksContainer extends Component {
+  state = {
+    isToggle: true,
+    newTask: '',
+    id: ''
+  };
+
   componentDidMount() {
     this.props.fetchUserTasks();
   }
@@ -30,6 +42,25 @@ class TasksContainer extends Component {
   deleteTask = taskId => {
     const { deleteUsersTask, fetchUserTasks } = this.props;
     deleteUsersTask(taskId).then(() => fetchUserTasks());
+  };
+
+  setToggle = () => {
+    this.setState(({ isToggle }) => ({ isToggle: !isToggle, id: '' }));
+  };
+
+  changeInputValue = e => {
+    const event = e.target;
+    this.setState({ newTask: event.value });
+  };
+
+  updateTask = () => {
+    const { newTask, id } = this.state;
+    const { updateUsersTask, fetchUserTasks } = this.props;
+    updateUsersTask(newTask, id).then(() => fetchUserTasks());
+  };
+
+  setItem = (id, task) => {
+    this.setState({ id, newTask: task });
   };
 
   render() {
@@ -47,10 +78,24 @@ class TasksContainer extends Component {
             dataAdded={dataAdded}
             _id={_id}
             deleteTask={this.deleteTask}
+            setItem={this.setItem}
           />
         </div>
       );
     });
+    if (this.state.id) {
+      return (
+        <form onBlur={this.updateTask}>
+          <input
+            autoFocus
+            type='text'
+            value={this.state.newTask}
+            onChange={this.changeInputValue}
+            onBlur={this.setToggle}
+          />
+        </form>
+      );
+    }
     return (
       <div>
         <TaskForm onSubmit={this.onSubmit} />
@@ -70,5 +115,6 @@ TasksContainer.propTypes = propTypes;
 export default connect(mapStateToProps, {
   fetchUserTasks,
   addUsersTask,
+  updateUsersTask,
   deleteUsersTask
 })(TasksContainer);

@@ -1,7 +1,10 @@
 const SuccessTypes = {
-  CREATE_USER: 'User saved',
+  CREATED_USER: 'User saved',
+  UPDATED_USER: 'User updated',
   COMPLETED: 'Operation completed successfully',
-  CREATED_COMMENT: 'Comment saved'
+  CREATED_TASK: 'Comment saved',
+  UPDATED_TASK: 'Task updated',
+  DELETED_TASK: 'Task deleted'
 };
 
 module.exports = SuccessTypes;

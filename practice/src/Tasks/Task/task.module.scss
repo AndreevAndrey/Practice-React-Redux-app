@@ -11,6 +11,9 @@
     width: 500px;
     background: gold;
     word-break: break-word;
+    p{
+      cursor: pointer;
+    }
     .buttonData{
       display: flex;
       justify-content: space-between;

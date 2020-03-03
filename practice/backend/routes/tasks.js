@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
       await tasksCollection.save();
       return res
         .status(HttpStatus.OK)
-        .json(new ResponseData(Success.COMPLETED, Code.SUCCESS));
+        .json(new ResponseData(Success.CREATED_TASK, Code.SUCCESS));
     }
     const newTask = new Tasks({
       tasks: [userTask]
@@ -55,7 +55,24 @@ router.post('/', async (req, res) => {
 
     return res
       .status(HttpStatus.CREATED)
-      .json(new ResponseData(Success.CREATED_COMMENT, Code.SUCCESS));
+      .json(new ResponseData(Success.CREATED_TASK, Code.SUCCESS));
+  } catch (e) {
+    res
+      .status(HttpStatus.INTERNAL_SERVER_ERROR)
+      .json(new ResponseData(Error.SERVER_ERROR, Code.ERROR));
+  }
+});
+
+router.put('/', async (req, res) => {
+  try {
+    const { newTask, taskId } = req.body;
+    await Tasks.updateOne(
+      { 'tasks._id': taskId },
+      { $set: { 'tasks.$.task': newTask } }
+    );
+    return res
+      .status(HttpStatus.OK)
+      .json(new ResponseData(Success.UPDATED_TASK, Code.SUCCESS));
   } catch (e) {
     res
       .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -69,7 +86,7 @@ router.delete('/', async (req, res) => {
     await Tasks.updateOne({}, { $pull: { tasks: { _id } } });
     return res
       .status(HttpStatus.OK)
-      .json(new ResponseData(Success.COMPLETED, Code.SUCCESS));
+      .json(new ResponseData(Success.DELETED_TASK, Code.SUCCESS));
   } catch (e) {
     res
       .status(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -29,7 +29,9 @@ router.put('/', async (req, res) => {
       });
       return res
         .status(HttpStatus.OK)
-        .json(new ResponseData(Success.COMPLETED, Code.SUCCESS, updatedUser));
+        .json(
+          new ResponseData(Success.UPDATED_USER, Code.SUCCESS, updatedUser)
+        );
     }
     const createUser = new User({
       name: req.body.name,
