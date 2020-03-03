@@ -30,6 +30,19 @@ export const addUsersTask = task => async dispatch => {
     dispatch(addTaskFailure());
   }
 };
+export const updateUsersTask = (newTask, taskId) => async dispatch => {
+  dispatch(addTask());
+  const body = {
+    newTask,
+    taskId
+  };
+  const response = await apiInstance.put(RequestApi.USER_TASKS(), body);
+  if (response.data.statusCode) {
+    dispatch(addTaskSuccess());
+  } else {
+    dispatch(addTaskFailure());
+  }
+};
 
 export const deleteUsersTask = taskId => async dispatch => {
   dispatch(addTask());
