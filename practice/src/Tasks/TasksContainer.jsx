@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { TextField } from '@material-ui/core';
 import style from './tasks.module.scss';
 import Task from './Task/Task';
-import Preloader from '../Common/Preloader/Preloader';
 import TaskForm from './Task/TaskForm';
 import {
   fetchUserTasks,
@@ -85,9 +86,13 @@ class TasksContainer extends Component {
     });
     if (this.state.id) {
       return (
-        <form onBlur={this.updateTask}>
-          <input
+        <form onBlur={this.updateTask} className={style.changeTask}>
+          <TextField
             autoFocus
+            label='Update task'
+            inputProps={{
+              maxLength: 200
+            }}
             type='text'
             value={this.state.newTask}
             onChange={this.changeInputValue}
@@ -100,7 +105,7 @@ class TasksContainer extends Component {
       <div>
         <TaskForm onSubmit={this.onSubmit} />
         <div className={style.tasks}>{Tasks}</div>
-        <div>{isFetching && <Preloader />}</div>
+        <div>{isFetching && <CircularProgress />}</div>
       </div>
     );
   }

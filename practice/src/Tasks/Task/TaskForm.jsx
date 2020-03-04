@@ -1,7 +1,9 @@
 import React from 'react';
 import { Field, reduxForm, reset } from 'redux-form';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 import style from './task.module.scss';
+import formField from '../../Common/Material-Ui/FormField';
 
 const propTypes = {
   handleSubmit: PropTypes.func.isRequired
@@ -10,8 +12,10 @@ const propTypes = {
 const TaskForm = ({ handleSubmit }) => (
   <div className={style.task}>
     <form onSubmit={handleSubmit}>
-      <Field component='input' name='task' type='text' maxLength={200} />
-      <button type='submit'>Add task</button>
+      <Field component={formField} name='task' label='Write a task' />
+      <Button type='submit' variant='contained' color='primary'>
+        Add task
+      </Button>
     </form>
   </div>
 );

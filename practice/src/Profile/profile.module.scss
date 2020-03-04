@@ -22,6 +22,10 @@
 .photo {
   @extend %imageBlock;
 
+  form {
+    text-align: center;
+  }
+
   label {
     display: flex;
     width: 410px;

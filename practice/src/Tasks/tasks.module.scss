@@ -1,7 +1,12 @@
-.tasks{
-  height: 500px;
+.tasks {
+  height: 60%;
   overflow-y: auto;
+
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+.changeTask {
+  margin-top: 200px;
 }
