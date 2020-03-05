@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -24,92 +24,93 @@ const propTypes = {
   }).isRequired
 };
 
-class TasksContainer extends Component {
-  state = {
-    isToggle: true,
-    newTask: '',
-    id: ''
-  };
+const TasksContainer = ({
+  fetchUserTasks,
+  addUsersTask,
+  updateUsersTask,
+  deleteUsersTask,
+  tasks: { tasks, isFetching }
+}) => {
+  const [isToggle, setIsToggle] = useState(true);
+  const [newTask, setNewTask] = useState('');
+  const [id, setId] = useState('');
 
-  componentDidMount() {
-    this.props.fetchUserTasks();
-  }
+  useEffect(() => {
+    async function fetchData() {
+      await fetchUserTasks();
+    }
 
-  onSubmit = ({ task }) => {
-    const { addUsersTask, fetchUserTasks } = this.props;
+    fetchData();
+  }, [fetchUserTasks]);
+
+  const onSubmit = ({ task }) => {
     addUsersTask(task).then(() => fetchUserTasks());
   };
 
-  deleteTask = taskId => {
-    const { deleteUsersTask, fetchUserTasks } = this.props;
+  const deleteTask = taskId => {
     deleteUsersTask(taskId).then(() => fetchUserTasks());
   };
 
-  setToggle = () => {
-    this.setState(({ isToggle }) => ({ isToggle: !isToggle, id: '' }));
+  const setToggle = () => {
+    setIsToggle(!isToggle);
+    setId('');
   };
 
-  changeInputValue = e => {
+  const changeInputValue = e => {
     const event = e.target;
-    this.setState({ newTask: event.value });
+    setNewTask(event.value);
   };
 
-  updateTask = () => {
-    const { newTask, id } = this.state;
-    const { updateUsersTask, fetchUserTasks } = this.props;
+  const updateTask = () => {
     updateUsersTask(newTask, id).then(() => fetchUserTasks());
   };
 
-  setItem = (id, task) => {
-    this.setState({ id, newTask: task });
+  const setItem = (id, task) => {
+    setId(id);
+    setNewTask(task);
   };
 
-  render() {
-    const {
-      tasks: { tasks, isFetching }
-    } = this.props;
-    const Tasks = tasks.map(({ task, _id, addedTime, user }) => {
-      const dataAdded = addedTime.split('T')[0];
-      return (
-        <div key={_id}>
-          <Task
-            task={task}
-            name={user.name}
-            avatar={user.avatar}
-            dataAdded={dataAdded}
-            _id={_id}
-            deleteTask={this.deleteTask}
-            setItem={this.setItem}
-          />
-        </div>
-      );
-    });
-    if (this.state.id) {
-      return (
-        <form onBlur={this.updateTask} className={style.changeTask}>
-          <TextField
-            autoFocus
-            label='Update task'
-            inputProps={{
-              maxLength: 200
-            }}
-            type='text'
-            value={this.state.newTask}
-            onChange={this.changeInputValue}
-            onBlur={this.setToggle}
-          />
-        </form>
-      );
-    }
+  const Tasks = tasks.map(({ task, _id, addedTime, user }) => {
+    const dataAdded = addedTime.split('T')[0];
     return (
-      <div>
-        <TaskForm onSubmit={this.onSubmit} />
-        <div className={style.tasks}>{Tasks}</div>
-        <div>{isFetching && <CircularProgress />}</div>
+      <div key={_id}>
+        <Task
+          task={task}
+          name={user.name}
+          avatar={user.avatar}
+          dataAdded={dataAdded}
+          _id={_id}
+          deleteTask={deleteTask}
+          setItem={setItem}
+        />
       </div>
     );
+  });
+  if (id) {
+    return (
+      <form onBlur={updateTask} className={style.changeTask}>
+        <TextField
+          autoFocus
+          label='Update task'
+          inputProps={{
+            maxLength: 200
+          }}
+          type='text'
+          value={newTask}
+          onChange={changeInputValue}
+          onBlur={setToggle}
+        />
+      </form>
+    );
   }
-}
+  return (
+    <div>
+      <TaskForm onSubmit={onSubmit} />
+      <div className={style.tasks}>{Tasks}</div>
+      <div>{isFetching && <CircularProgress />}</div>
+    </div>
+  );
+};
 
 const mapStateToProps = ({ tasks }) => ({
   tasks

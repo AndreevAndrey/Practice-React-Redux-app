@@ -1,6 +1,6 @@
 import apiInstance from '../config/apiInstance';
 import RequestApi from '../api/api';
-import errorTypes from '../Utils/errorTypes';
+import errorTypes from '../utils/errorTypes';
 
 import {
   fetchProfile as fetchProfilePending,
