@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import { TextField } from '@material-ui/core';
 import style from './profile.module.scss';
-import uploadFile from '../Utils/uploadFile/FileReader';
+import uploadFile from '../utils/uploadFile/fileReader';
 
 const propTypes = {
   fetchProfile: PropTypes.func.isRequired,
@@ -17,109 +17,111 @@ const propTypes = {
   }).isRequired
 };
 
-class Profile extends React.Component {
-  state = {
-    avatarFile: '',
+const Profile = ({ fetchProfile, profile, userUpdate, isFetching }) => {
+  const [user, setUser] = useState({
     avatar: '',
     name: '',
-    _id: null,
-    isToggle: true,
-    isSubmit: false
-  };
+    _id: ''
+  });
+  const [isToggle, setIsToggle] = useState(true);
+  const [isSubmit, setIsSubmit] = useState(false);
 
-  componentDidMount() {
-    this.props.fetchProfile().then(() => this.setState({ isSubmit: true }));
-  }
+  useEffect(() => {
+    async function fetchData() {
+      await fetchProfile().then(() => setIsSubmit(true));
+    }
 
-  componentWillReceiveProps({ isFetching, profile }) {
-    return !isFetching && this.setState(() => profile);
-  }
+    fetchData();
+  }, [fetchProfile]);
 
-  handleSubmit = e => {
+  useEffect(() => {
+    async function setStateUser() {
+      await setUser(profile);
+    }
+
+    setStateUser();
+  }, [profile]);
+
+  const handleSubmit = e => {
     e.preventDefault();
-    this.props.userUpdate(this.state);
-    this.setState({ isSubmit: true });
+    userUpdate(user);
+    setIsSubmit(true);
   };
 
-  handleChangeName = event => {
-    this.setState({ name: event.target.value, isSubmit: false });
+  const handleChangeName = event => {
+    setUser(user => ({ ...user, name: event.target.value }));
+    setIsSubmit(false);
   };
 
-  toggleForm = () => {
-    this.setState(({ isToggle }) => ({ isToggle: !isToggle }));
+  const toggleForm = () => {
+    setIsToggle(!isToggle);
   };
 
-  handleChange = e => {
+  const handleChange = e => {
     e.preventDefault();
     const avatarFile = e.target.files[0];
     uploadFile(avatarFile).then(
       avatar => {
-        this.setState({ avatarFile, avatar, isSubmit: false });
+        setUser(user => ({ ...user, avatar }));
+        setIsSubmit(false);
       },
       () => {
-        this.setState({ avatarFile: '', avatar: '' });
+        setUser(user => ({ ...user, avatar: '' }));
       }
     );
   };
 
-  render() {
-    const { avatar } = this.state;
-    const image = avatar ? (
-      <img alt='avatar' className={style.avatar} src={avatar} />
-    ) : this.props.profile.avatar ? (
-      <img
-        alt='avatar'
-        className={style.avatar}
-        src={this.props.profile.avatar}
-      />
-    ) : (
-      <div className={style.defaultField}>Please add a photo</div>
-    );
-
-    return (
-      <div className={style.profile}>
-        <div className={style.photo}>
-          {image}
-          <form onSubmit={this.handleSubmit}>
-            <label className={style.inputPhoto}>
-              <input
-                type='file'
-                name='image__uploads'
-                accept='image/jpeg,image/png'
-                onChange={this.handleChange}
-              />
-            </label>
-            {this.state.isToggle ? (
-              <>
-                <div className={style.name} onClick={this.toggleForm}>
-                  {this.state.name}
-                </div>
-                <Button
-                  type='submit'
-                  variant='contained'
-                  color={this.state.isSubmit ? 'default' : 'secondary'}
-                >
-                  Save
-                </Button>
-              </>
-            ) : (
-              <TextField
-                onBlur={this.toggleForm}
-                autoFocus
-                type='text'
-                name='name'
-                value={this.state.name}
-                onChange={this.handleChangeName}
-                label='Name'
-              />
-            )}
-          </form>
-        </div>
-        <div>{this.props.isFetching && <CircularProgress />}</div>
+  const { avatar, name } = user;
+  const image = avatar ? (
+    <img alt='avatar' className={style.avatar} src={avatar} />
+  ) : profile.avatar ? (
+    <img alt='avatar' className={style.avatar} src={profile.avatar} />
+  ) : (
+    <div className={style.defaultField}>Please add a photo</div>
+  );
+  return (
+    <div className={style.profile}>
+      <div className={style.photo}>
+        {image}
+        <form onSubmit={handleSubmit}>
+          <label className={style.inputPhoto}>
+            <input
+              type='file'
+              name='image__uploads'
+              accept='image/jpeg,image/png'
+              onChange={handleChange}
+            />
+          </label>
+          {isToggle ? (
+            <>
+              <div className={style.name} onClick={toggleForm}>
+                {name}
+              </div>
+              <Button
+                type='submit'
+                variant='contained'
+                color={isSubmit ? 'default' : 'secondary'}
+              >
+                Save
+              </Button>
+            </>
+          ) : (
+            <TextField
+              onBlur={toggleForm}
+              autoFocus
+              type='text'
+              name='name'
+              value={name}
+              onChange={handleChangeName}
+              label='Name'
+            />
+          )}
+        </form>
       </div>
-    );
-  }
-}
+      <div>{isFetching && <CircularProgress />}</div>
+    </div>
+  );
+};
 
 Profile.propTypes = propTypes;
 export default Profile;

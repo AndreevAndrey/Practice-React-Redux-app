@@ -3,7 +3,7 @@ import './App.css';
 import Provider from 'react-redux/es/components/Provider';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Header from '../Header/Header';
-import store from '../Redux/store';
+import store from '../redux/store';
 import ProfileContainer from '../Profile/ProfileContainer';
 import TasksContainer from '../Tasks/TasksContainer';
 
