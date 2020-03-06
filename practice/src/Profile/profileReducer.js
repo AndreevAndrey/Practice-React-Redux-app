@@ -11,7 +11,8 @@ const initialState = {
     avatar: '',
     _id: ''
   },
-  isFetching: false
+  isFetching: false,
+  errorMessage: ''
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -20,7 +21,8 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         user: { ...state.user },
-        isFetching: true
+        isFetching: true,
+        errorMessage: ''
       };
     case USER_UPDATE_SUCCESS:
       return {
@@ -31,13 +33,15 @@ const profileReducer = (state = initialState, action) => {
     case USER_UPDATE_FAILURE:
       return {
         ...state,
-        isFetching: false
+        isFetching: false,
+        errorMessage: action.errorMessage
       };
     case FETCH_PROFILE: {
       return {
         ...state,
         user: { ...state.user },
-        isFetching: true
+        isFetching: true,
+        errorMessage: ''
       };
     }
     case FETCH_PROFILE_SUCCESS: {
@@ -50,7 +54,8 @@ const profileReducer = (state = initialState, action) => {
     case FETCH_PROFILE_FAILURE: {
       return {
         ...state,
-        isFetching: false
+        isFetching: false,
+        errorMessage: action.errorMessage
       };
     }
     default:
@@ -60,12 +65,18 @@ const profileReducer = (state = initialState, action) => {
 
 export const userUpdate = () => ({ type: USER_UPDATE });
 export const userUpdateSuccess = data => ({ type: USER_UPDATE_SUCCESS, data });
-export const userUpdateFailure = () => ({ type: USER_UPDATE_FAILURE });
+export const userUpdateFailure = errorMessage => ({
+  type: USER_UPDATE_FAILURE,
+  errorMessage
+});
 export const fetchProfile = () => ({ type: FETCH_PROFILE });
 export const fetchProfileSuccess = profile => ({
   type: FETCH_PROFILE_SUCCESS,
   profile
 });
-export const fetchProfileFailure = () => ({ type: FETCH_PROFILE_FAILURE });
+export const fetchProfileFailure = errorMessage => ({
+  type: FETCH_PROFILE_FAILURE,
+  errorMessage
+});
 
 export default profileReducer;

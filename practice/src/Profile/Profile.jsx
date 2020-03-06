@@ -4,12 +4,14 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import { TextField } from '@material-ui/core';
 import style from './profile.module.scss';
+import error from '../utils/error/error.module.scss';
 import uploadFile from '../utils/uploadFile/fileReader';
 
 const propTypes = {
   fetchProfile: PropTypes.func.isRequired,
   userUpdate: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired,
   profile: PropTypes.shape({
     avatar: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -17,7 +19,13 @@ const propTypes = {
   }).isRequired
 };
 
-const Profile = ({ fetchProfile, profile, userUpdate, isFetching }) => {
+const Profile = ({
+  fetchProfile,
+  profile,
+  userUpdate,
+  isFetching,
+  errorMessage
+}) => {
   const [user, setUser] = useState({
     avatar: '',
     name: '',
@@ -49,6 +57,7 @@ const Profile = ({ fetchProfile, profile, userUpdate, isFetching }) => {
   };
 
   const handleChangeName = event => {
+    event.persist();
     setUser(user => ({ ...user, name: event.target.value }));
     setIsSubmit(false);
   };
@@ -95,12 +104,13 @@ const Profile = ({ fetchProfile, profile, userUpdate, isFetching }) => {
           {isToggle ? (
             <>
               <div className={style.name} onClick={toggleForm}>
-                {name}
+                {name ? <p>{name}</p> : <p>Add name</p>}
               </div>
               <Button
                 type='submit'
                 variant='contained'
                 color={isSubmit ? 'default' : 'secondary'}
+                disabled={!name}
               >
                 Save
               </Button>
@@ -119,6 +129,7 @@ const Profile = ({ fetchProfile, profile, userUpdate, isFetching }) => {
         </form>
       </div>
       <div>{isFetching && <CircularProgress />}</div>
+      <div className={error.error}>{errorMessage}</div>
     </div>
   );
 };
