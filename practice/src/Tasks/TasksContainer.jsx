@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { TextField } from '@material-ui/core';
 import style from './tasks.module.scss';
+import error from '../utils/error/error.module.scss';
 import Task from './Task/Task';
 import TaskForm from './Task/TaskForm';
 import {
@@ -20,7 +21,8 @@ const propTypes = {
   deleteUsersTask: PropTypes.func.isRequired,
   tasks: PropTypes.shape({
     tasks: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
-    isFetching: PropTypes.bool.isRequired
+    isFetching: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string.isRequired
   }).isRequired
 };
 
@@ -29,7 +31,7 @@ const TasksContainer = ({
   addUsersTask,
   updateUsersTask,
   deleteUsersTask,
-  tasks: { tasks, isFetching }
+  tasks: { tasks, isFetching, errorMessage }
 }) => {
   const [isToggle, setIsToggle] = useState(true);
   const [newTask, setNewTask] = useState('');
@@ -108,6 +110,7 @@ const TasksContainer = ({
       <TaskForm onSubmit={onSubmit} />
       <div className={style.tasks}>{Tasks}</div>
       <div>{isFetching && <CircularProgress />}</div>
+      <div className={error.error}>{errorMessage}</div>
     </div>
   );
 };

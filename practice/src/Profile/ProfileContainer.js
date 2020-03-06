@@ -12,7 +12,8 @@ const propTypes = {
   }).isRequired,
   updateProfile: PropTypes.func.isRequired,
   fetchProfile: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired
+  isFetching: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired
 };
 
 const ProfileContainer = props => {
@@ -26,13 +27,15 @@ const ProfileContainer = props => {
         userUpdate={userUpdate}
         fetchProfile={props.fetchProfile}
         isFetching={props.isFetching}
+        errorMessage={props.errorMessage}
       />
     </>
   );
 };
-const mapStateToProps = ({ profile: { user, isFetching } }) => ({
+const mapStateToProps = ({ profile: { user, isFetching, errorMessage } }) => ({
   user,
-  isFetching
+  isFetching,
+  errorMessage
 });
 
 ProfileContainer.propTypes = propTypes;

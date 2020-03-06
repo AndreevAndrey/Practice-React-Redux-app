@@ -6,14 +6,20 @@ import style from './task.module.scss';
 import formField from '../../Common/Material-Ui/FormField';
 
 const propTypes = {
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  pristine: PropTypes.bool.isRequired
 };
 
-const TaskForm = ({ handleSubmit }) => (
+const TaskForm = ({ handleSubmit, pristine }) => (
   <div className={style.task}>
     <form onSubmit={handleSubmit}>
       <Field component={formField} name='task' label='Write a task' />
-      <Button type='submit' variant='contained' color='primary'>
+      <Button
+        type='submit'
+        variant='contained'
+        color='primary'
+        disabled={pristine}
+      >
         Add task
       </Button>
     </form>

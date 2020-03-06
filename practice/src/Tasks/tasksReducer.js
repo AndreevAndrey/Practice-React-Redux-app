@@ -7,7 +7,8 @@ const FETCH_TASKS_FAILURE = 'FETCH_TASKS_FAILURE';
 
 const initialState = {
   tasks: [],
-  isFetching: false
+  isFetching: false,
+  errorMessage: ''
 };
 
 const tasksReducer = (state = initialState, action) => {
@@ -15,7 +16,8 @@ const tasksReducer = (state = initialState, action) => {
     case ADD_TASK:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
+        errorMessage: ''
       };
     case ADD_TASK_SUCCESS:
       return {
@@ -25,11 +27,13 @@ const tasksReducer = (state = initialState, action) => {
     case ADD_TASK_FAILURE:
       return {
         ...state,
-        isFetching: false
+        isFetching: false,
+        errorMessage: action.errorMessage
       };
     case FETCH_TASKS:
       return {
         ...state,
+        errorMessage: '',
         isFetching: true
       };
     case FETCH_TASKS_SUCCESS:
@@ -41,7 +45,8 @@ const tasksReducer = (state = initialState, action) => {
     case FETCH_TASKS_FAILURE:
       return {
         ...state,
-        isFetching: false
+        isFetching: false,
+        errorMessage: action.errorMessage
       };
     default:
       return state;
@@ -51,13 +56,19 @@ export const addTask = () => ({ type: ADD_TASK });
 export const addTaskSuccess = () => ({
   type: ADD_TASK_SUCCESS
 });
-export const addTaskFailure = () => ({ type: ADD_TASK_FAILURE });
+export const addTaskFailure = errorMessage => ({
+  type: ADD_TASK_FAILURE,
+  errorMessage
+});
 
 export const fetchTasks = () => ({ type: FETCH_TASKS });
 export const fetchTasksSuccess = taskData => ({
   type: FETCH_TASKS_SUCCESS,
   taskData
 });
-export const fetchTasksFailure = () => ({ type: FETCH_TASKS_FAILURE });
+export const fetchTasksFailure = errorMessage => ({
+  type: FETCH_TASKS_FAILURE,
+  errorMessage
+});
 
 export default tasksReducer;
