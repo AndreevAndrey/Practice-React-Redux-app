@@ -11,17 +11,22 @@ import {
   fetchUserTasks,
   addUsersTask,
   updateUsersTask,
-  deleteUsersTask
+  deleteUsersTask,
+  loadMore
 } from './tasksAction';
+import canLoadMore from '../utils/loadMore/canLoadMore';
 
 const propTypes = {
   addUsersTask: PropTypes.func.isRequired,
   fetchUserTasks: PropTypes.func.isRequired,
   updateUsersTask: PropTypes.func.isRequired,
   deleteUsersTask: PropTypes.func.isRequired,
+  loadMore: PropTypes.func.isRequired,
+
   tasks: PropTypes.shape({
     tasks: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
     isFetching: PropTypes.bool.isRequired,
+    count: PropTypes.number.isRequired,
     errorMessage: PropTypes.string.isRequired
   }).isRequired
 };
@@ -31,7 +36,8 @@ const TasksContainer = ({
   addUsersTask,
   updateUsersTask,
   deleteUsersTask,
-  tasks: { tasks, isFetching, errorMessage }
+  loadMore,
+  tasks: { tasks, isFetching, count, errorMessage }
 }) => {
   const [isToggle, setIsToggle] = useState(true);
   const [newTask, setNewTask] = useState('');
@@ -47,6 +53,13 @@ const TasksContainer = ({
 
   const onSubmit = ({ task }) => {
     addUsersTask(task).then(() => fetchUserTasks());
+  };
+
+  const onScroll = event => {
+    if (!canLoadMore(event)) {
+      return;
+    }
+    loadMore(count);
   };
 
   const deleteTask = taskId => {
@@ -108,7 +121,9 @@ const TasksContainer = ({
   return (
     <div>
       <TaskForm onSubmit={onSubmit} />
-      <div className={style.tasks}>{Tasks}</div>
+      <div className={style.tasks} onScroll={onScroll}>
+        {Tasks}
+      </div>
       <div>{isFetching && <CircularProgress />}</div>
       <div className={error.error}>{errorMessage}</div>
     </div>
@@ -125,5 +140,6 @@ export default connect(mapStateToProps, {
   fetchUserTasks,
   addUsersTask,
   updateUsersTask,
-  deleteUsersTask
+  deleteUsersTask,
+  loadMore
 })(TasksContainer);

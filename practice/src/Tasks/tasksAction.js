@@ -4,7 +4,8 @@ import {
   addTaskSuccess,
   fetchTasks,
   fetchTasksFailure,
-  fetchTasksSuccess
+  fetchTasksSuccess,
+  loadMoreSuccess
 } from './tasksReducer';
 import apiInstance from '../config/apiInstance';
 import RequestApi from '../api/api';
@@ -59,6 +60,18 @@ export const deleteUsersTask = taskId => async dispatch => {
     );
     if (response.data.statusCode) {
       dispatch(addTaskSuccess());
+    }
+  } catch (e) {
+    dispatch(addTaskFailure(errorTypes.LOADING_ERROR));
+  }
+};
+
+export const loadMore = count => async dispatch => {
+  dispatch(addTask());
+  try {
+    const response = await apiInstance.get(RequestApi.USER_TASKS(count));
+    if (response.data.statusCode) {
+      dispatch(loadMoreSuccess(response.data.data, count));
     }
   } catch (e) {
     dispatch(addTaskFailure(errorTypes.LOADING_ERROR));
