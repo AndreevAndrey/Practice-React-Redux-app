@@ -17,8 +17,8 @@ const propTypes = {
 };
 
 const ProfileContainer = props => {
-  const userUpdate = ({ name, avatar, _id }) => {
-    props.updateProfile({ name, avatar, _id });
+  const userUpdate = ({ name, avatar }) => {
+    props.updateProfile({ name, avatar });
   };
   return (
     <>

@@ -4,16 +4,20 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import tasksReducer from '../Tasks/tasksReducer';
 import profileReducer from '../Profile/profileReducer';
+import loginReducer from '../Auth/Login/loginReducer';
+import signInReducer from '../Auth/SignIn/signInReducer';
 
 const reducers = combineReducers({
   form: formReducer,
   tasks: tasksReducer,
-  profile: profileReducer
+  profile: profileReducer,
+  login: loginReducer,
+  signIn: signInReducer
 });
 
 const store = createStore(
   reducers,
   composeWithDevTools(applyMiddleware(thunkMiddleware))
 );
-window.store = store;
+
 export default store;

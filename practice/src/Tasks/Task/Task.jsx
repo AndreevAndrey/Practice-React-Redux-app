@@ -7,11 +7,15 @@ import style from './task.module.scss';
 const propTypes = {
   task: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  avatar: PropTypes.string.isRequired,
+  avatar: PropTypes.string,
   _id: PropTypes.string.isRequired,
   deleteTask: PropTypes.func.isRequired,
   setItem: PropTypes.func.isRequired,
   dataAdded: PropTypes.string.isRequired
+};
+
+const defaultProps = {
+  avatar: ''
 };
 
 const Task = ({ task, name, avatar, _id, deleteTask, dataAdded, setItem }) => (
@@ -32,5 +36,6 @@ const Task = ({ task, name, avatar, _id, deleteTask, dataAdded, setItem }) => (
 );
 
 Task.propTypes = propTypes;
+Task.defaultProps = defaultProps;
 
 export default Task;

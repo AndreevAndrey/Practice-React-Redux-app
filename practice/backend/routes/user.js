@@ -5,12 +5,13 @@ const ResponseData = require('../responseData/responseData');
 const Error = require('../responseData/errorTypes');
 const Success = require('../responseData/successTypes');
 const Code = require('../responseData/resultCode');
+const verifyToken = require('../middleware/verifyToken');
 
 const router = Router();
 
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
   try {
-    const user = await User.findOne();
+    const user = await User.findOne({ _id: req.user.id });
     res
       .status(HttpStatus.OK)
       .json(new ResponseData(Success.COMPLETED, Code.SUCCESS, user));
@@ -21,26 +22,14 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.put('/', async (req, res) => {
+router.put('/', verifyToken, async (req, res) => {
   try {
-    if (req.body._id) {
-      const updatedUser = await User.findByIdAndUpdate(req.body._id, req.body, {
-        new: true
-      });
-      return res
-        .status(HttpStatus.OK)
-        .json(
-          new ResponseData(Success.UPDATED_USER, Code.SUCCESS, updatedUser)
-        );
-    }
-    const createUser = new User({
-      name: req.body.name,
-      avatar: req.body.avatar
+    const updateUser = await User.findByIdAndUpdate(req.user.id, req.body, {
+      new: true
     });
-    await createUser.save();
     return res
-      .status(HttpStatus.CREATED)
-      .json(new ResponseData(Success.CREATE_USER, Code.SUCCESS, createUser));
+      .status(HttpStatus.OK)
+      .json(new ResponseData(Success.UPDATED_USER, Code.SUCCESS, updateUser));
   } catch (e) {
     res
       .status(HttpStatus.INTERNAL_SERVER_ERROR)

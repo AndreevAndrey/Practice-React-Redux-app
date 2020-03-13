@@ -28,8 +28,7 @@ export const updateProfile = userData => async dispatch => {
   try {
     const user = {
       name: userData.name,
-      avatar: userData.avatar,
-      _id: userData._id
+      avatar: userData.avatar
     };
     const response = await apiInstance.put(RequestApi.USER_DATA, user);
     if (response.data.statusCode) {
