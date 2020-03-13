@@ -1,24 +1,24 @@
 const { Router } = require('express');
 const HttpStatus = require('http-status-codes');
 const Tasks = require('../models/tasks');
-const User = require('../models/users');
 const ResponseData = require('../responseData/responseData');
 const Error = require('../responseData/errorTypes');
 const Success = require('../responseData/successTypes');
 const Code = require('../responseData/resultCode');
+const verifyToken = require('../middleware/verifyToken');
 
 const router = Router();
 
 const CHUNK_TASKS = 8;
 
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
   try {
     const { limit } = req.query;
     const skip = limit || 0;
     const userTasks = await Tasks.findOne(
-      {},
+      { _id: req.user.id },
       { tasks: { $slice: [skip * CHUNK_TASKS, CHUNK_TASKS] } }
-    ).populate('tasks.user', ['avatar', 'name']);
+    ).populate('_id', ['avatar', 'name']);
     if (!userTasks) {
       return res
         .status(HttpStatus.NO_CONTENT)
@@ -35,21 +35,20 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', verifyToken, async (req, res) => {
   try {
-    const tasksCollection = await Tasks.findOne();
+    const tasksCollection = await Tasks.findOne({ _id: req.user.id });
     const { task } = req.body;
-    const user = await User.findOne();
-    const userTask = { task, user };
     if (!!tasksCollection) {
-      tasksCollection.tasks.push(userTask);
+      tasksCollection.tasks.push({ task });
       await tasksCollection.save();
       return res
         .status(HttpStatus.OK)
         .json(new ResponseData(Success.CREATED_TASK, Code.SUCCESS));
     }
     const newTask = new Tasks({
-      tasks: [userTask]
+      _id: req.user.id,
+      tasks: [{ task }]
     });
     await newTask.save();
 
@@ -63,7 +62,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/', async (req, res) => {
+router.put('/', verifyToken, async (req, res) => {
   try {
     const { newTask, taskId } = req.body;
     await Tasks.updateOne(
@@ -80,10 +79,10 @@ router.put('/', async (req, res) => {
   }
 });
 
-router.delete('/', async (req, res) => {
+router.delete('/', verifyToken, async (req, res) => {
   try {
     const { _id } = req.query;
-    await Tasks.updateOne({}, { $pull: { tasks: { _id } } });
+    await Tasks.updateOne({ 'tasks._id': _id }, { $pull: { tasks: { _id } } });
     return res
       .status(HttpStatus.OK)
       .json(new ResponseData(Success.DELETED_TASK, Code.SUCCESS));

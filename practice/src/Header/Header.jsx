@@ -10,6 +10,12 @@ const Header = () => (
     <NavLink to='/tasks' activeClassName={style.active}>
       Tasks
     </NavLink>
+    <NavLink to='/login' activeClassName={style.active}>
+      Login
+    </NavLink>
+    <NavLink to='/signin' activeClassName={style.active}>
+      Sign in
+    </NavLink>
   </div>
 );
 export default Header;

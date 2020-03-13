@@ -22,7 +22,10 @@ const propTypes = {
   updateUsersTask: PropTypes.func.isRequired,
   deleteUsersTask: PropTypes.func.isRequired,
   loadMore: PropTypes.func.isRequired,
-
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired
+  }).isRequired,
   tasks: PropTypes.shape({
     tasks: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
     isFetching: PropTypes.bool.isRequired,
@@ -37,7 +40,8 @@ const TasksContainer = ({
   updateUsersTask,
   deleteUsersTask,
   loadMore,
-  tasks: { tasks, isFetching, count, errorMessage }
+  tasks: { tasks, isFetching, count, errorMessage },
+  user: { name, avatar }
 }) => {
   const [isToggle, setIsToggle] = useState(true);
   const [newTask, setNewTask] = useState('');
@@ -85,14 +89,14 @@ const TasksContainer = ({
     setNewTask(task);
   };
 
-  const Tasks = tasks.map(({ task, _id, addedTime, user }) => {
+  const Tasks = tasks.map(({ task, _id, addedTime }) => {
     const dataAdded = addedTime.split('T')[0];
     return (
       <div key={_id}>
         <Task
           task={task}
-          name={user.name}
-          avatar={user.avatar}
+          name={name}
+          avatar={avatar}
           dataAdded={dataAdded}
           _id={_id}
           deleteTask={deleteTask}
@@ -130,8 +134,9 @@ const TasksContainer = ({
   );
 };
 
-const mapStateToProps = ({ tasks }) => ({
-  tasks
+const mapStateToProps = ({ tasks, profile: { user } }) => ({
+  tasks,
+  user
 });
 
 TasksContainer.propTypes = propTypes;

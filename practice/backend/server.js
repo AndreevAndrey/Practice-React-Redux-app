@@ -12,6 +12,8 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 
 app.use('/api/user', require('./routes/user'));
 app.use('/api/tasks', require('./routes/tasks'));
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/token', require('./routes/token'));
 
 const start = async () => {
   try {

@@ -18,6 +18,9 @@ export const fetchUserTasks = () => async dispatch => {
     if (response.data.statusCode) {
       dispatch(fetchTasksSuccess(response.data.data));
     }
+    if (response.status === 204) {
+      dispatch(fetchTasksSuccess([]));
+    }
   } catch (e) {
     dispatch(fetchTasksFailure(errorTypes.LOADING_ERROR));
   }
