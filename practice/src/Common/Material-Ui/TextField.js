@@ -10,20 +10,22 @@ const propTypes = {
   }).isRequired
 };
 
-const formField = ({ input, meta: { touched, error }, ...custom }) => (
+const textField = ({ input, meta: { touched, error }, ...custom }) => (
   <TextField
     inputProps={{
-      maxLength: 30
+      maxLength: 300
     }}
+    multiline
     variant='outlined'
     margin='normal'
-    required
     fullWidth
+    rowsMax='3'
+    type='text'
     helperText={touched && error}
     {...input}
     {...custom}
   />
 );
 
-formField.propTypes = propTypes;
-export default formField;
+textField.propTypes = propTypes;
+export default textField;

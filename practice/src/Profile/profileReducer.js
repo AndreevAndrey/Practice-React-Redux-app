@@ -28,7 +28,8 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         user: { ...state.user, ...action.data },
-        isFetching: false
+        isFetching: false,
+        errorMessage: ''
       };
     case USER_UPDATE_FAILURE:
       return {

@@ -24,7 +24,8 @@ const tasksReducer = (state = initialState, action) => {
     case ADD_TASK_SUCCESS:
       return {
         ...state,
-        isFetching: false
+        isFetching: false,
+        errorMessage: ''
       };
     case ADD_TASK_FAILURE:
       return {
