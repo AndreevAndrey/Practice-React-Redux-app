@@ -5,7 +5,7 @@ import routePath from '../Routes/routePath';
 
 const Header = () => (
   <div className={style.header}>
-    <NavLink to={routePath.PROFILE} activeClassName={style.active}>
+    <NavLink exact to={routePath.PROFILE} activeClassName={style.active}>
       Profile
     </NavLink>
     <NavLink to={routePath.TASKS} activeClassName={style.active}>

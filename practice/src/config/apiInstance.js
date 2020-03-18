@@ -1,7 +1,7 @@
 import * as axios from 'axios';
 import RequestApi from '../api/api';
 
-const BASE_URL = 'http://192.168.100.4:5000/';
+const BASE_URL = 'http://192.168.100.6:5000/';
 
 const apiInstance = axios.create({
   baseURL: BASE_URL
@@ -30,9 +30,7 @@ const handlerErrorResponse = async error => {
       const { token, refreshToken } = res.data.data;
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
-      apiInstance.defaults.headers.Authorization = `Bearer ${localStorage.getItem(
-        'token'
-      )}`;
+      apiInstance.defaults.headers.Authorization = `Bearer ${token}`;
       return error.config;
     }
   }
