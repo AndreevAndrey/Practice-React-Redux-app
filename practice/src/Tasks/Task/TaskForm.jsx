@@ -3,7 +3,7 @@ import { Field, reduxForm, reset } from 'redux-form';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import style from './task.module.scss';
-import textField from '../../Common/Material-Ui/FormField';
+import textField from '../../Common/Material-Ui/TextField';
 
 const propTypes = {
   handleSubmit: PropTypes.func.isRequired,

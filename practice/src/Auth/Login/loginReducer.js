@@ -3,8 +3,6 @@ const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 const initialState = {
-  token: '',
-  refreshToken: '',
   isFetching: false,
   errorMessage: ''
 };
@@ -20,7 +18,6 @@ const loginReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        ...action.tokens,
         isFetching: false
       };
     case LOGIN_FAILURE:
@@ -35,7 +32,7 @@ const loginReducer = (state = initialState, action) => {
 };
 
 export const login = () => ({ type: LOGIN });
-export const loginSuccess = tokens => ({ type: LOGIN_SUCCESS, tokens });
+export const loginSuccess = () => ({ type: LOGIN_SUCCESS });
 export const loginFailure = errorMessage => ({
   type: LOGIN_FAILURE,
   errorMessage

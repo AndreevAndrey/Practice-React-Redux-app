@@ -30,9 +30,7 @@ const handlerErrorResponse = async error => {
       const { token, refreshToken } = res.data.data;
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
-      apiInstance.defaults.headers.Authorization = `Bearer ${localStorage.getItem(
-        'token'
-      )}`;
+      apiInstance.defaults.headers.Authorization = `Bearer ${token}`;
       return error.config;
     }
   }

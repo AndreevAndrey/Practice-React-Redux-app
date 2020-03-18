@@ -1,20 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import style from './header.module.scss';
+import routePath from '../Routes/routePath';
 
 const Header = () => (
   <div className={style.header}>
-    <NavLink to='/profile' activeClassName={style.active}>
+    <NavLink exact to={routePath.PROFILE} activeClassName={style.active}>
       Profile
     </NavLink>
-    <NavLink to='/tasks' activeClassName={style.active}>
+    <NavLink to={routePath.TASKS} activeClassName={style.active}>
       Tasks
-    </NavLink>
-    <NavLink to='/login' activeClassName={style.active}>
-      Login
-    </NavLink>
-    <NavLink to='/signin' activeClassName={style.active}>
-      Sign in
     </NavLink>
   </div>
 );
