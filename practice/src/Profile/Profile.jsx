@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import { TextField } from '@material-ui/core';
+import SaveIcon from '@material-ui/icons/Save';
 import style from './profile.module.scss';
 import error from '../utils/error/error.module.scss';
 import uploadFile from '../utils/uploadFile/fileReader';
@@ -109,6 +110,7 @@ const Profile = ({
               <Button
                 type='submit'
                 variant='contained'
+                startIcon={<SaveIcon />}
                 color={isSubmit ? 'default' : 'secondary'}
                 disabled={!name}
               >

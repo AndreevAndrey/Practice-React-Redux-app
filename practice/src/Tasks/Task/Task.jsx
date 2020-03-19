@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
 import style from './task.module.scss';
 
 const propTypes = {
@@ -28,7 +29,13 @@ const Task = ({ task, name, avatar, _id, deleteTask, dataAdded, setItem }) => (
       <p onClick={() => setItem(_id, task)}>{task}</p>
       <div className={style.buttonData}>
         <p>Added: {dataAdded}</p>
-        <Button onClick={() => deleteTask(_id)}>Delete task</Button>
+        <Button
+          color='secondary'
+          startIcon={<DeleteIcon />}
+          onClick={() => deleteTask(_id)}
+        >
+          Delete task
+        </Button>
       </div>
       <div />
     </div>

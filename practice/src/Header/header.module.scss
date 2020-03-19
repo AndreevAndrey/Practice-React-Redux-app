@@ -13,4 +13,17 @@
   a.active{
     color: #01805f;
   }
+  .switch{
+    position: absolute;
+    right: 10%;
+  }
+  .button{
+    position: absolute;
+    left: 10%;
+  }
+}
+
+.darkTheme{
+  @extend .header;
+  background: grey;
 }

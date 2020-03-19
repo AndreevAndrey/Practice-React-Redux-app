@@ -1,16 +1,4 @@
-%imageBlock {
-  display: flex;
-  justify-content: center;
-  border: 1px solid black;
-  height: 400px;
-  width: 400px;
-  position: relative;
-  object-fit: cover;
-  cursor: pointer;
-}
-
 .profile {
-  background: #41f5c9;
   width: 100%;
   display: flex;
 }
@@ -20,7 +8,14 @@
 }
 
 .photo {
-  @extend %imageBlock;
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  height: 400px;
+  width: 400px;
+  position: relative;
+  object-fit: cover;
+  cursor: pointer;
 
   form {
     text-align: center;
@@ -46,7 +41,9 @@
 }
 
 .avatar {
-  @extend %imageBlock;
+  @extend .photo;
+  border: none;
+  //TODO: Border
 }
 
 .submitPhoto {
