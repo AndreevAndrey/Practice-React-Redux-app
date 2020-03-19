@@ -1,16 +1,4 @@
-%imageBlock {
-  display: flex;
-  justify-content: center;
-  border: 1px solid black;
-  height: 400px;
-  width: 400px;
-  position: relative;
-  object-fit: cover;
-  cursor: pointer;
-}
-
 .profile {
-  background: #41f5c9;
   width: 100%;
   display: flex;
 }
@@ -20,7 +8,20 @@
 }
 
 .photo {
-  @extend %imageBlock;
+  display: flex;
+  justify-content: center;
+  background: cadetblue;
+  height: 400px;
+  width: 400px;
+  border-radius: 5px;
+  position: relative;
+  object-fit: cover;
+  cursor: pointer;
+
+  &:hover {
+    background: #007c68;
+    transition-duration: .2s;
+  }
 
   form {
     text-align: center;
@@ -46,7 +47,8 @@
 }
 
 .avatar {
-  @extend %imageBlock;
+  @extend .photo;
+  border: none;
 }
 
 .submitPhoto {

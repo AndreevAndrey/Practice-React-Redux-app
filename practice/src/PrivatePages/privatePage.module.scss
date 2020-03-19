@@ -1,7 +1,14 @@
 .page {
   display: flex;
   justify-content: center;
-  height: 100%;
+  height: 90%;
   width: 80%;
   margin: 0 auto;
+  background: #bbf7e1;
+
+}
+
+.darkTheme {
+  @extend .page;
+  background: rgba(45, 56, 45, 0.55);
 }
