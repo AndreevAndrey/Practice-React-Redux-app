@@ -10,12 +10,18 @@
 .photo {
   display: flex;
   justify-content: center;
-  border: 1px solid black;
+  background: cadetblue;
   height: 400px;
   width: 400px;
+  border-radius: 5px;
   position: relative;
   object-fit: cover;
   cursor: pointer;
+
+  &:hover {
+    background: #007c68;
+    transition-duration: .2s;
+  }
 
   form {
     text-align: center;
@@ -43,7 +49,6 @@
 .avatar {
   @extend .photo;
   border: none;
-  //TODO: Border
 }
 
 .submitPhoto {

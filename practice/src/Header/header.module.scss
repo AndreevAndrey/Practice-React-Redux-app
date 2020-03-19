@@ -1,29 +1,33 @@
-.header{
+.header {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 10%;
   background: aquamarine;
-  a{
+
+  a {
     margin: 20px;
     color: #9cc6f8;
     text-decoration: none;
   }
-  a.active{
+
+  a.active {
     color: #01805f;
   }
-  .switch{
+
+  .switch {
     position: absolute;
     right: 10%;
   }
-  .button{
+
+  .button {
     position: absolute;
     left: 10%;
   }
 }
 
-.darkTheme{
+.darkTheme {
   @extend .header;
   background: grey;
 }
