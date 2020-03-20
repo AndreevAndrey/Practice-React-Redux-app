@@ -2,9 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormControlLabel, Switch } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 import style from './header.module.scss';
 import routePath from '../Routes/routePath';
+import Logout from '../Auth/Logout/Logout';
 
 const propTypes = {
   toggleTheme: PropTypes.func.isRequired,
@@ -13,9 +13,7 @@ const propTypes = {
 
 const Header = ({ toggleTheme, isToggle }) => (
   <div className={isToggle ? style.header : style.darkTheme}>
-    <Button className={style.button} variant='contained'>
-      Log Out
-    </Button>
+    <Logout />
     <NavLink exact to={routePath.PROFILE} activeClassName={style.active}>
       Profile
     </NavLink>
