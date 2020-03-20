@@ -21,6 +21,7 @@ const Header = ({ toggleTheme, isToggle }) => (
       Tasks
     </NavLink>
     <FormControlLabel
+      labelPlacement='top'
       className={style.switch}
       control={<Switch checked={!isToggle} onChange={toggleTheme} />}
       label={isToggle ? `Light Theme` : `Dark Theme`}
