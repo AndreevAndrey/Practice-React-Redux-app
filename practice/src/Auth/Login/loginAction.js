@@ -3,6 +3,7 @@ import RequestApi from '../../api/api';
 import { login, loginFailure, loginSuccess } from './loginReducer';
 import errorTypes from '../../utils/error/errorTypes';
 import history from '../../utils/history/history';
+import routePath from '../../Routes/routePath';
 
 export default userData => async dispatch => {
   dispatch(login());
@@ -13,7 +14,7 @@ export default userData => async dispatch => {
       const { token, refreshToken } = response.data.data;
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
-      history.push('/');
+      history.push(routePath.PROFILE);
     }
   } catch (e) {
     dispatch(loginFailure(errorTypes.LOG_IN_ERROR));
