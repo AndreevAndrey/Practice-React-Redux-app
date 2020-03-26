@@ -24,7 +24,7 @@ const start = async () => {
       useFindAndModify: false
     });
     app.listen(process.env.PORT, process.env.HOST, () =>
-      console.log(`App has been started`)
+      console.log(`App has been started...`)
     );
   } catch (e) {
     console.log(e.message);
