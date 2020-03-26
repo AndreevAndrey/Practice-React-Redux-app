@@ -31,3 +31,31 @@
   @extend .header;
   background: grey;
 }
+
+@media all and (max-width: 800px) {
+  .header {
+    .switch {
+      position: absolute;
+      right: 5%;
+    }
+
+    .button {
+      position: absolute;
+      left: 5%;
+    }
+  }
+}
+
+@media all and (max-width: 500px) {
+  .header {
+    .switch {
+      position: absolute;
+      right: 0;
+    }
+
+    .button {
+      position: absolute;
+      left: 0;
+    }
+  }
+}

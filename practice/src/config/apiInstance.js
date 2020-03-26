@@ -1,7 +1,9 @@
 import * as axios from 'axios';
 import RequestApi from '../api/api';
+import history from '../utils/history/history';
+import routePath from '../Routes/routePath';
 
-const BASE_URL = 'http://192.168.100.6:5000/';
+const BASE_URL = 'http://192.168.100.3:5000/';
 
 const apiInstance = axios.create({
   baseURL: BASE_URL
@@ -31,8 +33,9 @@ const handlerErrorResponse = async error => {
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
       apiInstance.defaults.headers.Authorization = `Bearer ${token}`;
-      return error.config;
+      return apiInstance(error.config);
     }
+    history.push(routePath.LOG_IN);
   }
 };
 

@@ -12,3 +12,9 @@
   @extend .page;
   background: rgba(45, 56, 45, 0.55);
 }
+
+@media all and (max-width: 800px) {
+  .page {
+    width: 100%;
+  }
+}

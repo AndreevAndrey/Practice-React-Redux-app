@@ -70,3 +70,20 @@
 [name='name'] {
   margin: 20px;
 }
+
+@media all and (max-width: 800px) {
+  .profile{
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .photo,.inputPhoto,.photo label {
+    height: 300px;
+    width: 300px;
+  }
+  .submitPhoto{
+    top:200px
+  }
+  .defaultField{
+    font-size: 18px;
+  }
+}
