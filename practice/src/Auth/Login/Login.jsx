@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { NavLink } from 'react-router-dom';
 import useStyles from '../styleAuth';
 import error from '../../utils/error/error.module.scss';
-import formField from '../../Common/Material-Ui/FormField';
+import FormField from '../../Common/Material-Ui/FormField';
 import routePath from '../../Routes/routePath';
 
 const propTypes = {
@@ -33,14 +33,14 @@ const Login = ({ handleSubmit, isFetching, errorMessage }) => {
         </Typography>
         <form onSubmit={handleSubmit} className={classes.form}>
           <Field
-            component={formField}
+            component={FormField}
             type='text'
             name='email'
             label='Email Address'
             autoFocus
           />
           <Field
-            component={formField}
+            component={FormField}
             type='password'
             name='password'
             label='Password'
