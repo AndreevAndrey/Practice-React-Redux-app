@@ -1,9 +1,9 @@
 import * as axios from 'axios';
 import RequestApi from '../api/api';
 import history from '../utils/history/history';
-import routePath from '../Routes/routePath';
+import routePath from '../components/Routes/routePath';
 
-const BASE_URL = 'http://192.168.100.3:5000/';
+const BASE_URL = 'http://192.168.100.6:5000/';
 
 const apiInstance = axios.create({
   baseURL: BASE_URL

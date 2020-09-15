@@ -1,8 +1,8 @@
-import apiInstance from '../../config/apiInstance';
-import RequestApi from '../../api/api';
-import errorTypes from '../../utils/error/errorTypes';
+import apiInstance from '../../../config/apiInstance';
+import RequestApi from '../../../api/api';
+import errorTypes from '../../../utils/error/errorTypes';
 import { signIn, signInFailure, signInSuccess } from './signInReducer';
-import history from '../../utils/history/history';
+import history from '../../../utils/history/history';
 import routePath from '../../Routes/routePath';
 
 export default userData => async dispatch => {

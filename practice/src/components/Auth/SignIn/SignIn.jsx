@@ -8,8 +8,8 @@ import Avatar from '@material-ui/core/Avatar';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { NavLink } from 'react-router-dom';
-import error from '../../utils/error/error.module.scss';
-import FormField from '../../Common/Material-Ui/FormField';
+import error from '../../../utils/error/error.module.scss';
+import FormField from '../../../common/Material-Ui/FormField';
 import useStyles from '../styleAuth';
 import routePath from '../../Routes/routePath';
 

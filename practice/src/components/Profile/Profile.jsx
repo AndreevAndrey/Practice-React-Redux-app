@@ -5,8 +5,8 @@ import Button from '@material-ui/core/Button';
 import { TextField } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import style from './profile.module.scss';
-import error from '../utils/error/error.module.scss';
-import uploadFile from '../utils/uploadFile/fileReader';
+import error from '../../utils/error/error.module.scss';
+import uploadFile from '../../utils/uploadFile/fileReader';
 
 const propTypes = {
   fetchProfile: PropTypes.func.isRequired,

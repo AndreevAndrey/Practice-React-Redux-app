@@ -9,8 +9,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { NavLink } from 'react-router-dom';
 import useStyles from '../styleAuth';
-import error from '../../utils/error/error.module.scss';
-import FormField from '../../Common/Material-Ui/FormField';
+import error from '../../../utils/error/error.module.scss';
+import FormField from '../../../common/Material-Ui/FormField';
 import routePath from '../../Routes/routePath';
 
 const propTypes = {
