@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Switch } from 'react-router-dom';
-import history from '../utils/history/history';
+import history from '../../utils/history/history';
 import PublicRoutes from './PublicRoutes/PublicRoutes';
 import PrivateRoutes from './PrivateRoutes/PrivateRoutes';
 import PublicPages from '../PublicPages/PublicPages';

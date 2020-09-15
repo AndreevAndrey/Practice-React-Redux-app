@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { TextField } from '@material-ui/core';
 import style from './tasks.module.scss';
-import error from '../utils/error/error.module.scss';
+import error from '../../utils/error/error.module.scss';
 import Task from './Task/Task';
 import TaskForm from './Task/TaskForm';
 import {
@@ -14,7 +14,7 @@ import {
   deleteUsersTask,
   loadMore
 } from './tasksAction';
-import canLoadMore from '../utils/loadMore/canLoadMore';
+import canLoadMore from '../../utils/loadMore/canLoadMore';
 
 const propTypes = {
   addUsersTask: PropTypes.func.isRequired,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import LoginForm from './Login';
+import Login from './Login';
 import login from './loginAction';
 
 const propTypes = {
@@ -15,7 +15,7 @@ const LoginContainer = ({ login, isFetching, errorMessage }) => {
     login(user);
   };
   return (
-    <LoginForm
+    <Login
       onSubmit={onSubmit}
       isFetching={isFetching}
       errorMessage={errorMessage}

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import Routes from '../Routes/Routes';
-import BrowserStorageContext from '../utils/BrowserStorageContext/browserStorageContext';
+import BrowserStorageContext from '../../utils/BrowserStorageContext/browserStorageContext';
 
 function App() {
   return (

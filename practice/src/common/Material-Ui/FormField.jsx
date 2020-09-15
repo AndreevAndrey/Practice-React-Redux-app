@@ -10,7 +10,7 @@ const propTypes = {
   }).isRequired
 };
 
-const formField = ({ input, meta: { touched, error }, ...custom }) => (
+const FormField = ({ input, meta: { touched, error }, ...custom }) => (
   <TextField
     inputProps={{
       maxLength: 30
@@ -25,5 +25,5 @@ const formField = ({ input, meta: { touched, error }, ...custom }) => (
   />
 );
 
-formField.propTypes = propTypes;
-export default formField;
+FormField.propTypes = propTypes;
+export default FormField;

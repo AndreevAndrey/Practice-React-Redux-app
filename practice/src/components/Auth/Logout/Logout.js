@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import style from '../../Header/header.module.scss';
-import history from '../../utils/history/history';
+import history from '../../../utils/history/history';
 import routePath from '../../Routes/routePath';
 
 const Logout = () => {
